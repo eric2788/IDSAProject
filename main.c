@@ -1,8 +1,6 @@
 #include <stdio.h>
 #include "utils.h"
 #include "string-list.h"
-#include "string.h"
-#include "stdbool.h"
 
 #define DEBUG "[DEBUG]"
 
@@ -24,7 +22,7 @@ int main() {
 }
 
 List *outputList(const char *filename) {
-    FILE *fp = fopen(filename, "a+");
+    FILE *fp = fopen(filename, "r");
     if (fp == NULL) {
         printf("%s is not exist, cancelled.\n", filename);
         return NULL;
