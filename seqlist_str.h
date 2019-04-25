@@ -7,15 +7,11 @@
 #include<string.h>
 #include <stdbool.h>
 
-#define MAXLENGTH 100
+#define MAXLENGTH 1000
 #define ERROR -1
 #endif
 
-typedef struct line{
-    char *text;
-} text;
-
-typedef text ElementType;
+typedef char *ElementType;
 
 typedef struct List{
 	ElementType entry[MAXLENGTH];
@@ -24,13 +20,20 @@ typedef struct List{
 
 void initiate(list *);
 int length(list);
-int get(list, int, ElementType*);
-int next(list, int, ElementType*);
-int prior(list, int, ElementType*);
-void insert(list *, int, ElementType);
+
+int get(list, int, char *);
+
+int next(list, int, char *);
+
+int prior(list, int, char *);
+
+void insert(list *, int, const char *);
 void mydelete(list *, int);
-void add(list *,char *str);
+
+void add(list *, const char *);
 bool isempty(list);
+
+bool contain(list, const char *);
 
 
 void initiate(list *L){
@@ -55,30 +58,43 @@ bool full(list L){
 		return false;
 }
 
-int get(list L, int i, ElementType* as){
+int get(list L, int i, char *as) {
 	if ((i<1) || (i>length(L)))
 		return ERROR;
 	else{
-		*as = L.entry[i-1];
+        strcpy(as, L.entry[i - 1]);
 		return 0;
 	}
 }
 
-int next(list L, int i, ElementType* as){
+int next(list L, int i, char *as) {
 	return get(L, i+1, as);
 }
 
-int prior(list L, int i, ElementType* as){
+int prior(list L, int i, char *as) {
 	return get(L, i-1, as);
 }
 
-void add(list *L,char* str){
-    text x = {.text = ""};
-    strcpy(x.text,str);
-    insert(L,length(*L)+1,x);
+void add(list *L, const char *str) {
+    if (contain(*L, str))
+        return;
+    insert(L, length(*L) + 1, str);
 }
 
-void insert(list *L, int i, ElementType x){
+bool contain(list L, const char *str) {
+    int i = 0;
+    char string[100];
+    while (next(L, ++i, string) != -1) {
+        if (strcmp(str, string) == 0) {
+            return true;
+        }
+    }
+    return false;
+}
+
+void insert(list *L, int i, const char *x) {
+    char *copy = malloc(sizeof(copy));
+    strcpy(copy, x);
 	int j;
 	if ((i < 1) || (i > length(*L)+1))
 		printf("Insert Error! Out of range.\n");
@@ -87,7 +103,7 @@ void insert(list *L, int i, ElementType x){
 			for(j=length(*L)-1; j>=i-1; j--){
 				L->entry[j+1] = L->entry[j];
 			}
-			L->entry[i-1] = x;
+            L->entry[i - 1] = copy;
 			L->size++;
 		}
 		else{

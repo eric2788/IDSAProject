@@ -3,4 +3,4 @@ project(IDSAProject C)
 
 set(CMAKE_C_STANDARD 99)
 
-add_executable(IDSAProject main.c seqlist_str.h)
+add_executable(IDSAProject main.c string-list.h)

@@ -2,12 +2,6 @@
 #include <stdio.h>
 #include <stdbool.h>
 
-int getlength(const char str[9999999][99]) {
-    int i = -1;
-    while (strlen(str[++i]) != 0) {}
-    return i;
-}
-
 void alpha_sort(char arr[], int len) {
     int i, j, temp;
     for (i = 0; i < len - 1; i++)
@@ -17,13 +11,6 @@ void alpha_sort(char arr[], int len) {
                 arr[j] = arr[j + 1];
                 arr[j + 1] = temp;
             }
-}
-
-bool containStr(const char* str, const char arr[99999][99]){
-    for (int i = 0; i < getlength(arr); ++i) {
-        if (strcmp(arr[i],str) == 0) return true;
-    }
-    return false;
 }
 
 bool str_contain(const char* source, const char* text){
