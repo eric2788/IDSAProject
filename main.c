@@ -57,7 +57,7 @@ List *filter(List *words) {
         for (j = 0; j < List_length(filter); j++) {
             next = List_get(filter, j);
             //printf("checking %s\n",next);
-            char tempStr[9999];
+            char tempStr[100];
             strcpy(tempStr, next);
             char *compare;
             compare = strtok(tempStr, ", "); // "abcd, bacd"

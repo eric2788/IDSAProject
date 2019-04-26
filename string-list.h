@@ -227,14 +227,21 @@ int List_length(List *list) {
 void List_print(List *list) {
     assert(list != NULL);
 
+    FILE *fp = fopen("result.txt", "w+");
     Node *node = list->first;
+    char *main_word;
     while (node->next != NULL) {
-        printf("%s", node->data);
+        char *long_text = malloc(sizeof(char *));
+        strcpy(long_text, node->data);
+        main_word = strtok(long_text, ", ");
+        fprintf(fp, "The anagrams of word \"%s\" are: \n\n%s", main_word, node->data);
         node = node->next;
         if (node->next != NULL) {
-            printf("; \n");
+            fprintf(fp, "\n\n");
         }
     }
+    fclose(fp);
+    printf("\nThe result has been printed at result.txt.");
 }
 
 
